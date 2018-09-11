@@ -2,11 +2,12 @@ from urllib.parse import urlparse, parse_qs
 from new_sample import bcesigner
 import datetime
 
-host = "yuqing.baidu.com"  # 试用地址为这个；  正式的需要参考文档的地址为：trends.baidubce.com
-access_key = 'your'
-secret_key = 'your'
-api_key = 'your'
-api_secret = 'your'
+host = "yuqing.baidu.com"
+access_key = '6ea4fe2eff06446da7daa8c34f19ffac'
+secret_key = '64d3181de64a4f8cae786767360bea8f'
+api_key = '01bc25ada836c88cd8ae32a8196b3062'
+api_secret = 'd00a9516141c863b14e54fa476c82949'
+
 
 
 def gen_authorization(method, url):

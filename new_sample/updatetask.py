@@ -1,20 +1,19 @@
 #!/usr/bin/python
-# encoding=utf8
+# encoding=utf-8
 
 import sys
 
-reload(sys)
-sys.setdefaultencoding('utf-8')
 
 import datetime
 import hashlib
 import hmac
 import time
 import json
-import urllib2
-import urllib
+from urllib.request import Request, urlopen
+from urllib.error import HTTPError, URLError
+from urllib.parse import quote
 import hmac
-import conf
+from new_sample import conf
 
 
 def send(data, method):
@@ -27,25 +26,19 @@ def send(data, method):
         'authorization': auth,
         'accept': '*/*'
     }
-    request = urllib2.Request(url, data=data, headers=header)
+    request = Request(url, data=data.encode("utf-8"), headers=header)
     response = None
     try:
-        response = urllib2.urlopen(request, timeout=60)
+        response = urlopen(request, timeout=60)
         post_res_str = response.read()
-        print
-        post_res_str
-    except urllib2.HTTPError, e:
-        print
-        "HTTPError"
-        print
-        e.code, e.reason
-        print
-        e.read()
-    except urllib2.URLError, e:
-        print
-        "URLError"
-        print
-        e
+        print(post_res_str)
+    except HTTPError as  e:
+        print("HTTPError")
+        print(e.code, e.reason)
+        print(e.read())
+    except URLError as  e:
+        print("URLError")
+        print(e)
 
 
 def create_data():
@@ -80,15 +73,15 @@ def create_data():
                    }
 
     timestamp = str(int(time.time()))
-    token = hmac.new(conf.api_secret, conf.api_key + timestamp, hashlib.sha1).hexdigest()
-    params_dict_str = urllib.quote(json.dumps(params_dict, ensure_ascii=False))
+    token = hmac.new(bytes(conf.api_secret, 'utf-8'), bytes(conf.api_key + timestamp, 'utf-8'),
+                     hashlib.sha1).hexdigest()
+    params_dict_str = quote(json.dumps(params_dict, ensure_ascii=False))
 
     task_id = "设置为需要更新的task_id"
     data = "user_key=%s&token=%s&timestamp=%s&params_dict=%s&task_id=%s" % (
         conf.api_key, token, timestamp, params_dict_str, task_id)
-    print
-    data
-    return data;
+    print(data)
+    return data
 
 
 if __name__ == "__main__":
