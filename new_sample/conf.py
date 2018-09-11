@@ -2,11 +2,12 @@ from urllib.parse import urlparse, parse_qs
 from new_sample import bcesigner
 import datetime
 
-host = "yuqing.baidu.com"
-access_key = '6ea4fe2eff06446da7daa8c34f19ffac'
-secret_key = '64d3181de64a4f8cae786767360bea8f'
-api_key = '01bc25ada836c88cd8ae32a8196b3062'
-api_secret = 'd00a9516141c863b14e54fa476c82949'
+host = "trends.baidubce.com"
+access_key = '请修改为百度云的AK(Access Key)'
+secret_key = '请修改为百度云的SK(Secret Access Key)'
+api_key = '请修改为舆情服务提供的user_key'
+api_secret = '请修改为舆情服务提供的user_secret'
+
 
 
 
